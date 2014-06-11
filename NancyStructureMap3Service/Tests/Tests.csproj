@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic_service_check.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="Load_tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

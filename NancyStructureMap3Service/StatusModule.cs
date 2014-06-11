@@ -7,6 +7,7 @@ namespace NancyStructureMap3Service
 		public StatusModule()
 		{
 			Get["/status"] = _ => "OK";
+			Get["/status/{id}"] = _ => "OK " + _.id;
 		}
 	}
 }

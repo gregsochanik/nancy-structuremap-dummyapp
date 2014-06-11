@@ -12,30 +12,27 @@ namespace Tests
 	[TestFixture]
 	public class Load_tests
 	{
-		private static readonly string _uriTemplate = "http://localhost/NancyStructureMap3Service/status";
+		private const string SERVICE_URI = "http://localhost/NancyStructureMap3Service/status/{0}";
 
 		[Test]
 		[Explicit]
 		public async void Fire_same_request_at_service()
 		{
-			var artistIds = Enumerable.Repeat(1, 200);
+			var requests = Enumerable.Repeat(1, 200);
 
 			const int chunkSize = 100;
+			const int delayBetweenBatchesMs = 1000;
 
-			await FireRequests(artistIds, chunkSize, 1000);
+			await FireRequests(requests, chunkSize, delayBetweenBatchesMs);
 		}
 
-		private async static Task FireRequests(IEnumerable<int> artistIds, int concurrent, int delayBetweenBatches)
+		private async static Task FireRequests(IEnumerable<int> ids, int concurrent, int delayBetweenBatches)
 		{
 			var httpClient = new HttpClient();
 
-			foreach (var chunkSet in artistIds.Batch(concurrent))
+			foreach (var chunkedSet in ids.Batch(concurrent))
 			{
-				var tasks = chunkSet.Select(i =>
-				{
-					var fullUrl = _uriTemplate;
-					return httpClient.GetAsync(fullUrl);
-				});
+				var tasks = chunkedSet.Select(id => httpClient.GetAsync(string.Format(SERVICE_URI, id)));
 
 				var whenAll = await Task.WhenAll(tasks);
 				foreach (var httpResponseMessage in whenAll.Where(httpResponseMessage => httpResponseMessage.StatusCode != HttpStatusCode.OK))
