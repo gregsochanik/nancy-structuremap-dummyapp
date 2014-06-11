@@ -1,0 +1,17 @@
+*ReSharper*
+*.user
+*.suo
+*.dotCover
+*.log
+*.bak
+*.DotSettings
+*.docstates
+*.cache
+obj
+bin
+logs
+_TeamCity*
+
+#nuget
+packages/*
+!packages/repositories.config
