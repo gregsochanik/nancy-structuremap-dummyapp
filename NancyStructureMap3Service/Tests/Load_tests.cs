@@ -18,9 +18,9 @@ namespace Tests
 		[Explicit]
 		public async void Fire_same_request_at_service()
 		{
-			var requests = Enumerable.Range(1, 200);
+			var requests = Enumerable.Range(1, 1000);
 
-			const int chunkSize = 100;
+			const int chunkSize = 500;
 			const int delayBetweenBatchesMs = 1000;
 
 			await FireRequests(requests, chunkSize, delayBetweenBatchesMs);

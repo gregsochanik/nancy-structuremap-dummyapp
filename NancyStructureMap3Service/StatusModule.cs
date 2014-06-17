@@ -1,4 +1,5 @@
 ﻿using Nancy;
+using Nancy.Bootstrapper;
 
 namespace NancyStructureMap3Service
 {
