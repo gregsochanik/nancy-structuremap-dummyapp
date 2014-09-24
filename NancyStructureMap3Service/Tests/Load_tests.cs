@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace Tests
 {
 	[TestFixture]
+	[Description("This is to test a race condition I reported to the SM team on github regarding NancyFX 0.23.0 and SM v 3.0.1.114. The issue has since been resolved in a later nuget release (v3.0.4.126)")]
 	public class Load_tests
 	{
 		private const string SERVICE_URI = "http://localhost/NancyStructureMap3Service/status/{0}";
@@ -18,9 +19,9 @@ namespace Tests
 		[Explicit]
 		public async void Fire_same_request_at_service()
 		{
-			var requests = Enumerable.Range(1, 1000);
+			var requests = Enumerable.Range(1, 10000);
 
-			const int chunkSize = 500;
+			const int chunkSize = 1000;
 			const int delayBetweenBatchesMs = 1000;
 
 			await FireRequests(requests, chunkSize, delayBetweenBatchesMs);

@@ -2,7 +2,6 @@
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.StructureMap;
-using Nancy.Routing;
 using Nancy.ViewEngines;
 using StructureMap;
 
