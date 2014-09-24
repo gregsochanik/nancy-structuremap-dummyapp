@@ -1,4 +1,5 @@
 ﻿using StructureMap;
+using StructureMap.Graph;
 
 namespace NancyStructureMap3Service
 {
@@ -6,7 +7,14 @@ namespace NancyStructureMap3Service
 	{
 		protected override IContainer GetApplicationContainer()
 		{
-			return ObjectFactory.Container;
+			var container = new Container(x => x.Scan(scanner =>
+			{
+				scanner.TheCallingAssembly();
+				scanner.LookForRegistries();
+				scanner.WithDefaultConventions();
+			}));
+
+			return container;
 		}
 	}
 }
