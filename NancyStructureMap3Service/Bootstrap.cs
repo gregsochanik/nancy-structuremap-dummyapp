@@ -1,20 +1,19 @@
-﻿using StructureMap;
+﻿using Nancy.Bootstrappers.StructureMap;
+using StructureMap;
 using StructureMap.Graph;
 
 namespace NancyStructureMap3Service
 {
-	public class Bootstrap : StructureMapNancyBootstrapper_OverriddenGetModule
+	public class Bootstrap : StructureMapNancyBootstrapper
 	{
-		protected override IContainer GetApplicationContainer()
+		protected override void ConfigureApplicationContainer(IContainer existingContainer)
 		{
-			var container = new Container(x => x.Scan(scanner =>
+			existingContainer.Configure(x => x.Scan(scanner =>
 			{
 				scanner.TheCallingAssembly();
-				scanner.LookForRegistries();
 				scanner.WithDefaultConventions();
+				scanner.SingleImplementationsOfInterface();
 			}));
-
-			return container;
 		}
 	}
 }
